@@ -16,7 +16,10 @@ const Shop = () => {
             Shir - Shop
             <br></br>
                 {products.length}
-                {products.map(p=><div key={p.id}> <button onClick={()=>dispatch(addProd(p))}>BUY</button> - 
+                {products.map((p,i)=><div key={i}> 
+                <button onClick={()=>dispatch(addProd({item:p,amount:1}))}>+</button>
+                <button onClick={()=>dispatch(addProd({item:p,amount:-1}))}>-</button>
+                 
                     {p.desc}{p.price}
                 </div>)}
         </div>
