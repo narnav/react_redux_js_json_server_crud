@@ -1,10 +1,17 @@
 import axios from "axios";
 const SERVER='http://localhost:3005/prods/'
+const SERVER_CATS='http://localhost:3005/categories/'
+
 export function fetchProds() {
   return new Promise((resolve) =>
     axios.get(SERVER).then((res) => resolve({ data: res.data }))
   );
 }
+export function fetchCategories() {
+    return new Promise((resolve) =>
+      axios.get(SERVER_CATS).then((res) => resolve({ data: res.data }))
+    );
+  }
 export function addNewProd(newProd) {
     console.log(newProd)
     return new Promise((resolve) =>

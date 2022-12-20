@@ -1,10 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchProds,addNewProd,delProd,updProd } from './shopAPI';
+import { fetchProds,addNewProd,delProd,updProd,fetchCategories } from './shopAPI';
 
 const initialState = {
   prods:[],
+  cats:[],
   updStatus:false
 };
+
+export const getCatsAsync = createAsyncThunk(
+    'shop/fetchCategories',
+    async () => {
+      const response = await fetchCategories();
+      return response.data;
+    }
+  );
 
 export const getProdsAsync = createAsyncThunk(
   'shop/fetchProds',
@@ -17,6 +26,7 @@ export const getProdsAsync = createAsyncThunk(
 export const addProdsAsync = createAsyncThunk(
     'shop/addNewProd',
     async (newProd) => {
+        console.log(newProd)
       const response = await addNewProd(newProd);
       return response.data;
     }
@@ -59,12 +69,15 @@ export const shopSlice = createSlice({
       }).addCase(updProdAsync.fulfilled, (state) => {
         console.log(state.updStatus)
         state.updStatus = !state.updStatus
+      }).addCase(getCatsAsync.fulfilled, (state,action) => {
+        state.cats=action.payload
       })
   },
 });
 
 export const { testOnly } = shopSlice.actions;
 export const selectProds = (state) => state.shop.prods;
+export const selectCats = (state) => state.shop.cats;
 export const selectupdStatus = (state) => state.shop.updStatus;
 
 export default shopSlice.reducer;

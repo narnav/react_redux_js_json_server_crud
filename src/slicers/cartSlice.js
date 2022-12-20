@@ -52,7 +52,7 @@ export const cartSlice = createSlice({
             }
             else {//not exist in my cart
                 if (amount ===-1)return
-                const tempProd={desc: item.desc,price:item.price,id:item.id,amount:1}
+                const tempProd={desc: item.desc,price:item.price,id:item.id,amount:1,cat:item.cat}
                 state.myCart.push(tempProd)
             }
             localStorage.setItem("cart", JSON.stringify(state.myCart))
